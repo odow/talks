@@ -11831,10 +11831,12 @@ a.anchor-link {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="SDDP.jl---A-Flexible-SDDP-Library">SDDP.jl - A Flexible SDDP Library<a class="anchor-link" href="#SDDP.jl---A-Flexible-SDDP-Library">&#182;</a></h1><h3 id="Unless-you-can-come-up-with-a-catchy-name">Unless you can come up with a catchy name<a class="anchor-link" href="#Unless-you-can-come-up-with-a-catchy-name">&#182;</a></h3><ul>
-<li>JAST.jl (Just Another SDDP Toolbox)</li>
-<li>DOASA.jl (Dynamic Outer Approximation Sampling Algorithm)</li>
-<li>JEMSO.jl (Julia Environment for Multi-stage Stochastic Optimisation)</li>
-<li>Kokako.jl <a href="http://nzbirdsonline.org.nz/species/north-island-kokako">a NZ bird</a></li>
+<li>JAST.jl  - Just Another SDDP Toolbox</li>
+<li>DOASA.jl - Dynamic Outer Approximation Sampling Algorithm</li>
+<li>JEMSO.jl - JuMP Extension for Multi-stage Stochastic Optimisation</li>
+<li>Kokako.jl - <a href="http://nzbirdsonline.org.nz/species/north-island-kokako">a NZ bird</a></li>
+<li>Mohua.jl - Multistage Optimisation H?? Uncertainty A?? <a href="https://en.wikipedia.org/wiki/Yellowhead_%28bird%29">another NZ bird</a></li>
+<li>Moa.jl - Multistage Optimisation Application <a href="https://en.wikipedia.org/wiki/Moa">yet another NZ bird</a></li>
 </ul>
 <p>Oscar Dowson, P.h.D. Candidate, The University of Auckland</p>
 <p><a href="mailto: odow003@aucklanduni.ac.nz">odow003@aucklanduni.ac.nz</a> <a href="https://github.com/odow">@odow</a></p>
@@ -11852,7 +11854,7 @@ a.anchor-link {
 <li><a href="https://github.com/leopoldcambier/FAST">FAST (Finally An SDDP Toolbox)</a> Released on Github a year ago although around previously</li>
 <li><a href="https://github.com/JuliaOpt/StochDynamicProgramming.jl">StochDynamicProgramming.jl</a></li>
 <li><a href="https://github.com/blegat/StochasticDualDynamicProgramming.jl">StochasticDualDynamicProgramming.jl</a></li>
-<li><a href="https://github.com/odow/SDDP.jl">SDDP.jl</a></li>
+<li><s>[SDDP.jl](https://github.com/odow/SDDP.jl)</s>Moa.jl</li>
 </ol>
 
 </div>
@@ -11887,22 +11889,22 @@ a.anchor-link {
 
 </div>
 </div>
-</div></section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="What-are-we-talking-about...">What are we talking about...<a class="anchor-link" href="#What-are-we-talking-about...">&#182;</a></h1><p>Let us consider a stochastic linear program with $T$ stages, denoted $t=1,2,\dots,T$. We shall also consider the markov process $W_t,\quad t=1,2,\dots,T$, with transition matrices $P^{(t)}$. We shall denote the realisations of $W_t$ by the integers $i=1,2,\dots,S_t$. $P^{(t)}$ has size $S_t \times S_{t+1}$.</p>
-<p>In each stage and markov state of our stochastic linear program, there is a random right-hand-side vector $b_t(\omega_{ti})\in \mathbb{R}^m$ with a finite number of realisations defined by $\omega_{ti} \in \Omega_{ti}$ supported with probability $\phi_{ti}$.</p>
-<p>If we assume that we begin in markov state $I$ in stage 1, in terms of the realisation of $\omega_{1I} \in \Omega_{1I}$, the first stage problem can be written as</p>
-$$
-\begin{array}{r c c l r}
-z(\omega_{1I}) & = & \text{min} & c_1^\top x_1 + \sum\limits_{j=1}^{S_{t+1}} P^{(t)}_{Ij}\mathbb{E}\left[Q_{2,j}(x_1, \omega_{2,j}) | W_{2} = j\right]&\\
-&&\text{s.t.}& A_1x_{1} = b_1(\omega_{1I})&\\
-&&&x_1 \ge 0.
-\end{array}
-$$<p>where $x_1\in \mathbb{R}^n$ is the first stage decision, $c_1 \in \mathbb{R}^n$ is a cost vector, $A_1$ is a $m\times n$ matrix and $b_1\in \mathbb{R}^m$. The expected cost of the stochastic linear program is therefore $\mathbb{E}[z(\omega_{1I})]$.</p>
+<h1 id="What-are-we-talking-about">What are we talking about<a class="anchor-link" href="#What-are-we-talking-about">&#182;</a></h1><p>A stage has six things</p>
+<p><a href="https://github.com/odow/talks/assets/stage.png">Stage Problem</a></p>
+<ol>
+<li>An incoming state $x_{t-1}$</li>
+<li>An outgoing state $x_t$</li>
+<li>Uncertainty that is realised at the beginning of the state $\omega_t$</li>
+<li>An action that is taken $u_t$</li>
+<li>Some dynamics $x_t = f_t(x_{t-1}, u_t, \omega_t)$</li>
+<li>A reward that is earned $c_t(x_{t-1}, x_t, u_t)$</li>
+</ol>
 
 </div>
 </div>
@@ -11912,14 +11914,14 @@ $$<p>where $x_1\in \mathbb{R}^n$ is the first stage decision, $c_1 \in \mathbb{R
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Subsequent-stages">Subsequent stages<a class="anchor-link" href="#Subsequent-stages">&#182;</a></h2><p>We denote $Q_{ti}(x_{t-1}, \omega_{ti})$ as the future costs associated with decision $x_{t-1}$ and realisation $\omega_{ti} \in \Omega_{ti}$. This can be solved as</p>
 $$
-\begin{array}{r c c l r}
-Q_{ti}(x_{t-1}, \omega_{ti}) & = & \text{min} & c_t^\top x_t + \sum\limits_{j=1}^{S_{t+1}} P^{(t)}_{ij}\mathbb{E}\left[Q_{t+1,j}(x_t, \omega_{t+1,j}) | W_{t+1} = j\right]&\\
-&&\text{s.t.}& A_tx_{t} = b_t(\omega_{ti}) - E_tx_{t-1}& [\pi_{t}(\omega_{ti})]\\
-&&&x_t \ge 0.
+\begin{array}{r l r}
+    SP_t(\bar{x}_{t-1}, \omega_t):\quad\quad \min\limits_{u_t}  & c_t(x_{t-1}, x_t, u_t) + \theta_{t+1}              \\
+\text{s.t.}\quad  x_{t-1}     & = \bar{x}_{t-1} && [\pi_t(\omega_t)]\\
+      x_t         & = f_t(x_{t-1}, u_t)           \\
+      u_t         & \in U_t(x_{t-1}, \omega_t)
 \end{array}
-$$<p>where $x_t\in \mathbb{R}^n$ is the decision in stage $t$, $c_t \in \mathbb{R}^n$ its cost, $A_t$ and $E_t$ denote $m\times n$ matrices. $\pi_{ti}(\omega_{ti})$ are the dual variables of the constraints. In the last stage, we assume that $\mathbb{E}[Q_{T+1,i}(x_T, \omega_{T+1,i})]=0$.</p>
+$$<p>$SP_t$ is a user defined JuMP model.</p>
 
 </div>
 </div>
