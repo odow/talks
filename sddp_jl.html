@@ -11854,7 +11854,7 @@ a.anchor-link {
 <li><a href="https://github.com/leopoldcambier/FAST">FAST (Finally An SDDP Toolbox)</a> Released on Github a year ago although around previously</li>
 <li><a href="https://github.com/JuliaOpt/StochDynamicProgramming.jl">StochDynamicProgramming.jl</a></li>
 <li><a href="https://github.com/blegat/StochasticDualDynamicProgramming.jl">StochasticDualDynamicProgramming.jl</a></li>
-<li><s>[SDDP.jl](https://github.com/odow/SDDP.jl)</s>Moa.jl</li>
+<li><a href="https://github.com/odow/SDDP.jl">SDDP.jl</a>Moa.jl</li>
 </ol>
 
 </div>
@@ -11896,7 +11896,7 @@ a.anchor-link {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="What-are-we-talking-about">What are we talking about<a class="anchor-link" href="#What-are-we-talking-about">&#182;</a></h1><p>A stage has six things</p>
-<p><a href="https://github.com/odow/talks/assets/stage.png">Stage Problem</a></p>
+<p><img src="https://odow.github.io/talks/assets/stage.png" alt="Stage Problem" title="Stage Problem"></p>
 <ol>
 <li>An incoming state $x_{t-1}$</li>
 <li>An outgoing state $x_t$</li>
@@ -11943,7 +11943,7 @@ $$<p>$SP_t$ is a user defined JuMP model.</p>
 </div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-julia"><pre><span></span><span class="c"># To get started we need to clone SDDP.jl</span>
@@ -11954,20 +11954,6 @@ $$<p>$SP_t$ is a user defined JuMP model.</p>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre><span class="ansi-cyan-intense-fg ansi-bold">INFO: </span><span class="ansi-cyan-fg">Recompiling stale cache file C:\Users\odow003\.julia\lib\v0.6\SDDP.ji for module SDDP.
-</span></pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -12111,7 +12097,7 @@ $x^i_t \in [0, \infty),\quad x^i_0 = i, \quad i=\{1,2,3\}\quad t=\{1,2,\dots,T\}
 <div class="highlight"><pre><span></span><span class="p">@</span><span class="n">state</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x0</span><span class="o">==</span><span class="n">i</span><span class="p">)</span>
 </pre></div>
 <p>or do fancier things like</p>
-<div class="highlight"><pre><span></span><span class="n">RERVOIRS</span> <span class="o">=</span> <span class="p">[:</span><span class="n">taupo</span><span class="p">,</span> <span class="p">:</span><span class="n">benmore</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="n">RESERVOIRS</span> <span class="o">=</span> <span class="p">[:</span><span class="n">taupo</span><span class="p">,</span> <span class="p">:</span><span class="n">benmore</span><span class="p">]</span>
 <span class="n">INITIAL_STORAGE</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(:</span><span class="n">taupo</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="n">benmore</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">)</span>
 
 <span class="p">@</span><span class="n">state</span><span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">r</span><span class="o">=</span><span class="n">RESERVOIRS</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x0</span><span class="o">==</span><span class="n">INITIAL_STORAGE</span><span class="p">[</span><span class="n">r</span><span class="p">])</span>
